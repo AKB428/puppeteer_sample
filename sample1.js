@@ -1,3 +1,4 @@
+// puppeteerのサンプルそのまま
 const puppeteer = require('puppeteer');
 
 (async () => {
