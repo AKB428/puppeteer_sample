@@ -1,4 +1,3 @@
-// サンプルを第一引数をとれるように変更したもの
 const puppeteer = require('puppeteer');
 
 (async () => {
