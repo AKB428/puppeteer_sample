@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
+// 引数URL例
 // https://www.amazon.co.jp/gp/bestsellers/hobby/
+// https://www.amazon.co.jp/gp/bestsellers/books
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -9,8 +11,10 @@ const puppeteer = require('puppeteer');
 
   await page.waitForSelector('#zg-right-col');
   const oneProductBlock = '.zg-item-immersion'
+  const productRanking = '.zg-badge-text'
   const productName = '.p13n-sc-truncated'
   const productPrice = '.p13n-sc-price'
+  const productUrl = '.a-link-normal'
 
   const findElements = await page.$$(oneProductBlock)
   const products = []
@@ -18,15 +22,22 @@ const puppeteer = require('puppeteer');
   console.log(findElements.length)
 
   for (const oneProduct of findElements) {
+    const ranking = await oneProduct.$eval(productRanking, item => {
+      return item.textContent;
+    });
     const name = await oneProduct.$eval(productName, item => {
       return item.textContent;
     });
     const price = await oneProduct.$eval(productPrice, item => {
       return item.textContent;
     });
+    const url = await oneProduct.$eval(productUrl, item => {
+      return item.href;
+    });
 
-    products.push({name: name, price: price})
+    products.push({ranking: ranking, name: name, price: price, url: url})
   };
 
+  console.log(products)
   await browser.close();
 })();
