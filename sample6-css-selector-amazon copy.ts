@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-
+// https://www.amazon.co.jp/gp/bestsellers/hobby/
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -9,8 +9,8 @@ const puppeteer = require('puppeteer');
 
   await page.waitForSelector('#zg-right-col');
   const target = '.p13n-sc-truncated';
-  const findElements = await page.$$eval(target, links => {
-    return links.map(link => link.textContent);
+  const findElements = await page.$$eval(target, (elements: any[]) => {
+    return elements.map(element => element.textContent);
   });
   console.log(findElements);
   await browser.close();
