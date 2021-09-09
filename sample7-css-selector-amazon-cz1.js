@@ -1,3 +1,4 @@
+// ランキングのような複数の要素ブロックからブロック内の複数の要素（タイトル、価格）を取得するサンプル
 const puppeteer = require('puppeteer');
 // 引数URL例
 // https://www.amazon.co.jp/gp/bestsellers/hobby/
